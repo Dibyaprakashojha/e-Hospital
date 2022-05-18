@@ -11,5 +11,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface IAppUserDetailsRepository extends JpaRepository<AppUserDetails,Integer> {
-
+    /**
+     *
+     * @param emailId
+     * @return The user by the unique emailId
+     */
+    AppUserDetails findByEmailId(String emailId);
 }

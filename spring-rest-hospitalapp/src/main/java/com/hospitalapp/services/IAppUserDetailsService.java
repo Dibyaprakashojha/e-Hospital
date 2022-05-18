@@ -9,10 +9,10 @@ import com.hospitalapp.model.AppUserDetails;
  */
 public interface IAppUserDetailsService {
     /**
-     * This service is for storing,updating and deleting the user details in AppUserDetails table
+     * This service is for storing,updating and deleting the userDetails details in AppUserDetails table
      * will be used by users(patients) and the admin module
      */
-    void addUser(AppUserDetails user);
+    void addUser(AppUserDetails userDetails);
     void updateUser(AppUserDetails user);
     void deleteUser(int userDetailsId);
 }
