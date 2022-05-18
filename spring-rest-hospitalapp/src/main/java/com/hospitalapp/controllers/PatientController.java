@@ -1,6 +1,7 @@
 package com.hospitalapp.controllers;
 
-import com.hospitalapp.model.Appointment;
+import com.hospitalapp.exceptions.IdNotFoundException;
+import com.hospitalapp.exceptions.PatientNotFoundException;
 import com.hospitalapp.model.Patient;
 import com.hospitalapp.services.IPatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Dibya Prakash Ojha
@@ -29,9 +28,6 @@ public class PatientController {
 
     @PostMapping("/patients")
     public ResponseEntity<Patient> addPatient(@RequestBody Patient patient){
-//        Set<Appointment> appointmentSet = patient.getAppointments();
-//        Set<Appointment> appointments = new HashSet<>(appointmentSet);
-//        appointmentSet.forEach(appointment -> appointment.getPatient().setAppointments(appointments));
         iPatientService.addPatient(patient);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .headers(httpHeaders -> httpHeaders.add("desc", "adding data for patient"))
@@ -55,7 +51,7 @@ public class PatientController {
     }
 
     @GetMapping("/patients/patientId/{patientId}")
-    public ResponseEntity<Patient> getById(int patientId){
+    public ResponseEntity<Patient> getById(@PathVariable("patientId") int patientId) throws IdNotFoundException {
         Patient patient = iPatientService.getById(patientId);
         return ResponseEntity.status(HttpStatus.OK)
                 .headers(httpHeaders -> httpHeaders.add("desc", "get data for patient by Id"))
@@ -63,12 +59,43 @@ public class PatientController {
     }
 
     @GetMapping("/patients")
-    public ResponseEntity<List<Patient>> getAll(){
+    public ResponseEntity<List<Patient>> getAll() throws PatientNotFoundException{
         List<Patient> patients = iPatientService.getAll();
         return ResponseEntity.status(HttpStatus.OK)
                 .headers(httpHeaders -> httpHeaders.add("desc", "get all patients"))
                 .body(patients);
     }
 
+    @GetMapping("/patients/patientName/{patientLastName}")
+    public ResponseEntity<List<Patient>>getByPatientLastName(@PathVariable("patientLastName") String patientLastName) throws PatientNotFoundException{
+        List<Patient> patients = iPatientService.getAll();
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders -> httpHeaders.add("desc", "get all patients by patientLastName"))
+                .body(patients);
+    }
+
+    @GetMapping("/patients/bloodGroup/{bloodGroup}")
+    public ResponseEntity<List<Patient>>getByBloodGroup(@PathVariable("bloodGroup") String bloodGroup) throws PatientNotFoundException{
+        List<Patient> patients = iPatientService.getAll();
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders -> httpHeaders.add("desc", "get all patients by bloodGroup"))
+                .body(patients);
+    }
+
+    @GetMapping("/patients/patientFirstName/{patientFirstName}/bloodGroup/{bloodGroup}")
+    public ResponseEntity<List<Patient>>getByPatientFirstNameBloodGroup(@PathVariable("patientFirstName") String patientFirstName,@PathVariable("bloodGroup") String bloodGroup) throws PatientNotFoundException{
+        List<Patient> patients = iPatientService.getAll();
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders -> httpHeaders.add("desc", "get all patients by patientFirstName and bloodGroup"))
+                .body(patients);
+    }
+
+    @GetMapping("/patients/patientName/{patientFirstName}/city/{city}")
+    public ResponseEntity<List<Patient>>getByPatientFirstNameCity(@PathVariable("patientFirstName") String patientFirstName,@PathVariable("city") String city) throws PatientNotFoundException{
+        List<Patient> patients = iPatientService.getAll();
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders -> httpHeaders.add("desc", "get all patients by patientFirstName and city"))
+                .body(patients);
+    }
 
 }

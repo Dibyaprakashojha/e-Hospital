@@ -1,5 +1,7 @@
 package com.hospitalapp.services;
 
+import com.hospitalapp.exceptions.DoctorNotFoundException;
+import com.hospitalapp.exceptions.IdNotFoundException;
 import com.hospitalapp.model.Doctor;
 
 import java.util.List;
@@ -16,20 +18,20 @@ public interface IDoctorService {
      */
     Doctor addDoctor(Doctor doctor);
     void updateDoctor(Doctor doctor);
-    void deleteDoctor(int doctorId);
-    Doctor getById(int doctorId);
-    List<Doctor> getAll();
+    void deleteDoctor(int doctorId) throws IdNotFoundException;
+    Doctor getById(int doctorId) throws IdNotFoundException;
+    List<Doctor> getAll() throws DoctorNotFoundException;
 
-    List<Doctor> getByDoctorFirstName(String doctorFirstName);
-    List<Doctor> getByDoctorLastName(String doctorLastName);
-    List<Doctor> getByFees(double fees);
-    List<Doctor> getByDepartment(String department);
-    List<Doctor> getByDepartmentAndFeesLessThan(String department, double fees);
+    List<Doctor> getByDoctorFirstName(String doctorFirstName) throws DoctorNotFoundException;
+    List<Doctor> getByDoctorLastName(String doctorLastName) throws DoctorNotFoundException;
+    List<Doctor> getByFees(double fees) throws DoctorNotFoundException;
+    List<Doctor> getByDepartment(String department) throws DoctorNotFoundException;
+    List<Doctor> getByDepartmentAndFeesLessThan(String department, double fees) throws DoctorNotFoundException;
 
-    List<Doctor> getByCity(String city);
-    List<Doctor> getByDepartmentCity(String department,String city);
-    List<Doctor> getByDepartmentState(String department,String state);
-    List<Doctor> getByCityFees(String city,double fees);
+    List<Doctor> getByCity(String city) throws DoctorNotFoundException;
+    List<Doctor> getByDepartmentCity(String department,String city) throws DoctorNotFoundException;
+    List<Doctor> getByDepartmentState(String department,String state) throws DoctorNotFoundException;
+    List<Doctor> getByCityFees(String city,double fees) throws DoctorNotFoundException;
 
 
 

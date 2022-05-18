@@ -1,12 +1,12 @@
 package com.hospitalapp.services;
 
+import com.hospitalapp.exceptions.AppointmentNotFoundException;
+import com.hospitalapp.exceptions.IdNotFoundException;
 import com.hospitalapp.model.Appointment;
-import com.hospitalapp.model.Patient;
 import com.hospitalapp.repository.IAppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -24,6 +24,12 @@ public class AppoitmentServiceImpl implements IAppointmentService{
         this.iAppointmentRepository = iAppointmentRepository;
     }
 
+    /**
+     *
+     * @param appointment
+     * @return
+     * @throws AppointmentNotFoundException
+     */
     @Override
     public Appointment addAppointment(Appointment appointment) {
         return iAppointmentRepository.save(appointment);
@@ -36,27 +42,27 @@ public class AppoitmentServiceImpl implements IAppointmentService{
     }
 
     @Override
-    public void deleteAppointment(int appointmentId) {
+    public void deleteAppointment(int appointmentId) throws IdNotFoundException {
         iAppointmentRepository.deleteById(appointmentId);
     }
 
     @Override
-    public Appointment getById(int appoitnmentId) {
+    public Appointment getById(int appoitnmentId) throws IdNotFoundException {
         return iAppointmentRepository.findById(appoitnmentId).get();
     }
 
     @Override
-    public List<Appointment> getAllByDoctor(String doctorLastName) {
+    public List<Appointment> getByDoctorName(String doctorLastName) throws AppointmentNotFoundException {
         return iAppointmentRepository.findByDoctorLastName(doctorLastName);
     }
 
     @Override
-    public List<Appointment> getByPatientName(String patientFirstName) {
+    public List<Appointment> getByPatientName(String patientFirstName) throws AppointmentNotFoundException {
         return iAppointmentRepository.findByPatientFirstName(patientFirstName);
     }
 
     @Override
-    public List<Appointment> getByTimeSlotsAndDateOfAppointment(LocalTime slotStartTime, LocalTime slotEndTime, LocalDate dateOfAppointment) {
+    public List<Appointment> getByTimeSlotsAndDateOfAppointment(LocalTime slotStartTime, LocalTime slotEndTime, LocalDate dateOfAppointment) throws AppointmentNotFoundException {
         return iAppointmentRepository.findByTimeSlotsAndDateOfAppointment(slotStartTime, slotEndTime, dateOfAppointment);
     }
 }

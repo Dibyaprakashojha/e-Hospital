@@ -1,9 +1,9 @@
 package com.hospitalapp.controllers;
 
+import com.hospitalapp.exceptions.DoctorNotFoundException;
 import com.hospitalapp.model.Doctor;
 import com.hospitalapp.services.IDoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,38 +66,74 @@ public class DoctorController {
     }
 
     @GetMapping("/doctors/doctorName/{doctorFirstName}")
-    public ResponseEntity<List<Doctor>>getByDoctorFirstName(@PathVariable("doctorFirstName") String doctorFirstName){
+    public ResponseEntity<List<Doctor>> getByDoctorFirstName(@PathVariable("doctorFirstName") String doctorFirstName){
         List<Doctor> doctors = iDoctorService.getByDoctorFirstName(doctorFirstName);
         return ResponseEntity.status(HttpStatus.OK)
                 .headers(httpHeaders -> httpHeaders.add("desc", "get all doctors"))
                 .body(doctors);
     }
 
+    @GetMapping("/doctors/doctorName/{doctorLastName}")
+    public ResponseEntity<List<Doctor>> getByDoctorLastName(@PathVariable("doctorLastName") String doctorLastName) throws DoctorNotFoundException{
+        List<Doctor> doctors = iDoctorService.getByDoctorLastName(doctorLastName);
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders -> httpHeaders.add("desc", "get all doctors"))
+                .body(doctors);
+    }
 
-//    List<Doctor> getByDoctorLastName(String doctorLastName){
-//
-//    }
-//    List<Doctor> getByFees(double fees){
-//
-//    }
-//    List<Doctor> getByDepartment(String department){
-//
-//    }
-//    List<Doctor> getByDepartmentAndFeesLessThan(String department, double fees){
-//
-//    }
-//
-//    List<Doctor> getByCity(String city){
-//
-//    }
-//    List<Doctor> getByDepartmentCity(String department,String city){
-//
-//    }
-//    List<Doctor> getByDepartmentState(String department,String state){
-//
-//    }
-//    List<Doctor> getByCityFees(String city,double fees){
-//
-//    }
+    @GetMapping("/doctors/fees/{fees}")
+    public ResponseEntity<List<Doctor>> getByFees(@PathVariable("fees") double fees) throws DoctorNotFoundException{
+        List<Doctor> doctors = iDoctorService.getByFees(fees);
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders -> httpHeaders.add("desc", "get all doctors"))
+                .body(doctors);
+    }
 
+    @GetMapping("/doctors/department/{department}")
+    public ResponseEntity<List<Doctor>> getByDepartment(@PathVariable("department") String department) throws DoctorNotFoundException{
+        List<Doctor> doctors = iDoctorService.getByDepartment(department);
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders -> httpHeaders.add("desc", "get all doctors"))
+                .body(doctors);
+    }
+
+    @GetMapping("/doctors/department/{department}/fees/{fees}")
+    public ResponseEntity<List<Doctor>> getByDepartmentAndFeesLessThan(@PathVariable("department") String department,@PathVariable("fees")  double fees) throws DoctorNotFoundException{
+        List<Doctor> doctors = iDoctorService.getByDepartmentAndFeesLessThan(department, fees);
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders -> httpHeaders.add("desc", "get all doctors"))
+                .body(doctors);
+    }
+
+    @GetMapping("/doctors/city/{city}")
+    public ResponseEntity<List<Doctor>> getByCity(@PathVariable("city") String city) throws DoctorNotFoundException{
+        List<Doctor> doctors = iDoctorService.getByCity(city);
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders -> httpHeaders.add("desc", "get all doctors"))
+                .body(doctors);
+    }
+
+    @GetMapping("/doctors/department/{department}/city/{city}")
+    public ResponseEntity<List<Doctor>> getByDepartmentCity(@PathVariable("department") String department,@PathVariable("city") String city) throws DoctorNotFoundException{
+        List<Doctor> doctors = iDoctorService.getByDepartmentCity(department, city);
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders -> httpHeaders.add("desc", "get all doctors"))
+                .body(doctors);
+    }
+
+    @GetMapping("/doctors/department/{department}/state/{state}")
+    public ResponseEntity<List<Doctor>> getByDepartmentState(@PathVariable("department") String department,@PathVariable("state") String state) throws DoctorNotFoundException{
+        List<Doctor> doctors = iDoctorService.getByDepartmentState(department, state);
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders -> httpHeaders.add("desc", "get all doctors"))
+                .body(doctors);
+    }
+
+    @GetMapping("/doctors/city/{city}/fees/{fees}")
+    public ResponseEntity<List<Doctor>> getByCityFees(@PathVariable("city") String city,@PathVariable("fees") double fees) throws DoctorNotFoundException{
+        List<Doctor> doctors = iDoctorService.getByCityFees(city, fees);
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(httpHeaders -> httpHeaders.add("desc", "get all doctors"))
+                .body(doctors);
+    }
 }

@@ -1,14 +1,13 @@
 package com.hospitalapp.services;
 
-import com.hospitalapp.model.Appointment;
+import com.hospitalapp.exceptions.IdNotFoundException;
+import com.hospitalapp.exceptions.PatientNotFoundException;
 import com.hospitalapp.model.Patient;
 import com.hospitalapp.repository.IPatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Dibya Prakash Ojha
@@ -47,32 +46,32 @@ public class PatientServiceImpl implements IPatientService{
     }
 
     @Override
-    public Patient getById(int patientId) {
+    public Patient getById(int patientId) throws IdNotFoundException {
         return null;
     }
 
     @Override
-    public List<Patient> getAll() {
+    public List<Patient> getAll() throws PatientNotFoundException {
         return iPatientRepository.findAll();
     }
 
     @Override
-    public List<Patient> getByPatientLastName(String patientLastName) {
+    public List<Patient> getByPatientLastName(String patientLastName) throws PatientNotFoundException {
         return null;
     }
 
     @Override
-    public List<Patient> getByBloodGroup(String bloodGroup) {
+    public List<Patient> getByBloodGroup(String bloodGroup) throws PatientNotFoundException {
         return null;
     }
 
     @Override
-    public List<Patient> getByPatientFirstNameBloodGroup(String patientLastName, String bloodGroup) {
+    public List<Patient> getByPatientFirstNameBloodGroup(String patientFirstName, String bloodGroup) throws PatientNotFoundException {
         return null;
     }
 
     @Override
-    public List<Patient> getByPatientFirstNameCity(String patientLastName, String city) {
+    public List<Patient> getByPatientFirstNameCity(String patientFirstName, String city) throws PatientNotFoundException {
         return null;
     }
 }

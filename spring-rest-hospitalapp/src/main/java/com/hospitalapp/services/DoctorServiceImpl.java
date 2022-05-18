@@ -1,5 +1,7 @@
 package com.hospitalapp.services;
 
+import com.hospitalapp.exceptions.DoctorNotFoundException;
+import com.hospitalapp.exceptions.IdNotFoundException;
 import com.hospitalapp.model.Doctor;
 import com.hospitalapp.repository.IDoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +53,7 @@ public class DoctorServiceImpl implements IDoctorService{
      * @param doctorId
      */
     @Override
-    public void deleteDoctor(int doctorId) {
+    public void deleteDoctor(int doctorId) throws IdNotFoundException {
         iDoctorRepository.deleteById(doctorId);
     }
 
@@ -61,7 +63,7 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return One doctor
      */
     @Override
-    public Doctor getById(int doctorId) {
+    public Doctor getById(int doctorId) throws IdNotFoundException {
         return iDoctorRepository.findById(doctorId).get();
     }
 
@@ -70,7 +72,7 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return List of all doctors
      */
     @Override
-    public List<Doctor> getAll() {
+    public List<Doctor> getAll() throws DoctorNotFoundException {
         return iDoctorRepository.findAll();
     }
 
@@ -80,7 +82,7 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByDoctorFirstName(String doctorFirstName) {
+    public List<Doctor> getByDoctorFirstName(String doctorFirstName) throws DoctorNotFoundException {
         return iDoctorRepository.findByDoctorFirstName(doctorFirstName)
                 .stream().sorted(Comparator.comparing(Doctor::getDoctorFirstName))
                 .collect(Collectors.toList());
@@ -92,7 +94,7 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByDoctorLastName(String doctorLastName) {
+    public List<Doctor> getByDoctorLastName(String doctorLastName) throws DoctorNotFoundException {
         return iDoctorRepository.findByDoctorLastName(doctorLastName)
                 .stream().sorted(Comparator.comparing(Doctor::getDoctorLastName))
                 .collect(Collectors.toList());
@@ -104,7 +106,7 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByFees(double fees) {
+    public List<Doctor> getByFees(double fees) throws DoctorNotFoundException {
         return iDoctorRepository.findByFeesLessThan(fees)
                 .stream().sorted(Comparator.comparing(Doctor::getFees))
                 .collect(Collectors.toList());
@@ -116,7 +118,7 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByDepartment(String department) {
+    public List<Doctor> getByDepartment(String department) throws DoctorNotFoundException {
         return iDoctorRepository.findByDepartment(department)
                 .stream().sorted(Comparator.comparing(Doctor::getDoctorFirstName))
                 .collect(Collectors.toList());
@@ -129,7 +131,7 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByDepartmentAndFeesLessThan(String department, double fees) {
+    public List<Doctor> getByDepartmentAndFeesLessThan(String department, double fees) throws DoctorNotFoundException {
         return iDoctorRepository.findByDepartmentAndFeesLessThan(department, fees)
                 .stream().sorted(Comparator.comparing(Doctor::getDoctorFirstName))
                 .collect(Collectors.toList());
@@ -141,7 +143,7 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByCity(String city) {
+    public List<Doctor> getByCity(String city) throws DoctorNotFoundException {
         return iDoctorRepository.findByCity(city);
     }
 
@@ -152,7 +154,7 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByDepartmentCity(String department, String city) {
+    public List<Doctor> getByDepartmentCity(String department, String city) throws DoctorNotFoundException {
         return iDoctorRepository.findByDepartmentCity(department, city);
     }
 
@@ -163,7 +165,7 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByDepartmentState(String department, String state) {
+    public List<Doctor> getByDepartmentState(String department, String state) throws DoctorNotFoundException {
         return iDoctorRepository.findByDepartmentState(department, state);
     }
 
@@ -174,7 +176,7 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByCityFees(String city, double fees) {
+    public List<Doctor> getByCityFees(String city, double fees) throws DoctorNotFoundException {
         return iDoctorRepository.findByCityFees(city, fees);
     }
 

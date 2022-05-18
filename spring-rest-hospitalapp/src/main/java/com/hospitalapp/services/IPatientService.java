@@ -1,7 +1,8 @@
 package com.hospitalapp.services;
 
+import com.hospitalapp.exceptions.IdNotFoundException;
+import com.hospitalapp.exceptions.PatientNotFoundException;
 import com.hospitalapp.model.Patient;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 /**
@@ -17,14 +18,14 @@ public interface IPatientService {
     Patient addPatient(Patient patient);
     void updatePatient(Patient patient);
     void deletePatient(int patientId);
-    Patient getById(int patientId);
-    List<Patient> getAll();
+    Patient getById(int patientId)  throws IdNotFoundException;
+    List<Patient> getAll() throws PatientNotFoundException;
 
-    List<Patient> getByPatientLastName(String patientLastName);
-    List<Patient> getByBloodGroup(String bloodGroup);
+    List<Patient> getByPatientLastName(String patientLastName) throws PatientNotFoundException;
+    List<Patient> getByBloodGroup(String bloodGroup) throws PatientNotFoundException;
 
-    List<Patient> getByPatientFirstNameBloodGroup(String patientLastName,String bloodGroup);
-    List<Patient> getByPatientFirstNameCity(String patientLastName,String city);
+    List<Patient> getByPatientFirstNameBloodGroup(String patientFirstName,String bloodGroup) throws PatientNotFoundException;
+    List<Patient> getByPatientFirstNameCity(String patientFirstName,String city) throws PatientNotFoundException;
 
 
 }

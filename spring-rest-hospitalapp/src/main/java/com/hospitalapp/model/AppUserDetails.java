@@ -44,11 +44,12 @@ public class AppUserDetails {
 
     private String roles; // this param is the role assigned to a user (ADMIN,DOCTOR,PATIENT,PHARMACIST)
 
-    public AppUserDetails(String firstName, String lastName, String emailId, String password, String roles) {
+    public AppUserDetails(String firstName, String lastName,String emailId, String password, String roles) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.emailId = this.emailId;
+        this.emailId = emailId;
         this.password = password;
         this.roles = roles;
     }
+
 }
