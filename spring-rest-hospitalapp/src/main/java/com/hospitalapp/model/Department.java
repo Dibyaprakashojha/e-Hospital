@@ -1,5 +1,6 @@
 package com.hospitalapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,9 +26,10 @@ public class Department {
     @Column(length = 40)
     private String departments; // Onco,Cardio,Ent,Neuro,Physio,Ortho,Opthalmo,Gynaec,Nephro
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy = "department")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "department")
     // this mappedBy(department) will be attached to doctor table
     @ToString.Exclude
+    @JsonIgnore
     private Set<Doctor> doctors;
 
 

@@ -1,5 +1,6 @@
 package com.hospitalapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,12 +39,9 @@ public class Patient {
     @JoinColumn(name = "address_id") // this address_id will be added as foreign key in patient table
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "patient_id") // this patient_id will be added as foreign key in appointment table
+    @OneToMany(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "patient_id")
+    @ToString.Exclude
+    @JsonIgnore
     private Set<Appointment> appointments;
-
-
-
-
-
 }

@@ -1,9 +1,14 @@
 package com.hospitalapp.services;
 
+import com.hospitalapp.model.Appointment;
 import com.hospitalapp.model.Patient;
+import com.hospitalapp.repository.IPatientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Dibya Prakash Ojha
@@ -12,11 +17,25 @@ import java.util.List;
  */
 @Service
 public class PatientServiceImpl implements IPatientService{
-    @Override
-    public Patient addPatient(Patient patient) {
-        return null;
+    /**
+     * This implementation class is for crud applications on doctor table
+     * getting all doctors by department,city,patientLastName
+     */
+    private IPatientRepository iPatientRepository;
+    @Autowired
+    public void setiPatientRepository(IPatientRepository iPatientRepository) {
+        this.iPatientRepository = iPatientRepository;
     }
 
+    @Override
+    public Patient addPatient(Patient patient) {
+        return iPatientRepository.save(patient);
+    }
+
+    /**
+     *
+     * @param patient
+     */
     @Override
     public void updatePatient(Patient patient) {
 
@@ -34,7 +53,7 @@ public class PatientServiceImpl implements IPatientService{
 
     @Override
     public List<Patient> getAll() {
-        return null;
+        return iPatientRepository.findAll();
     }
 
     @Override

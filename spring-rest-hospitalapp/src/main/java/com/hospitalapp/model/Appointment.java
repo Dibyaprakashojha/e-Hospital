@@ -1,10 +1,17 @@
 package com.hospitalapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author Dibya Prakash Ojha
@@ -24,15 +31,27 @@ public class Appointment {
     @ToString.Exclude
     private Integer appointmentId;
 
-    @Column(length = 20,unique = true)
-    private String appNumber;
+//    @GeneratedValue(generator = "UUID")
+//    @GenericGenerator(
+//            name = "UUID",
+//            strategy = "org.hibernate.id.UUIDGenerator"
+//    )
+//    @Column(updatable = false)
+//    @Type(type = "uuid_char")
+    private String appNumber; // AP5002,AP5003
 
-    private LocalDateTime dateTimeOfAppointment;
+    private LocalDate dateOfAppointment;
+
+    private LocalTime slotStartTime;
+
+    private LocalTime slotEndTime;
 
     private String problem;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "appointment_id") // this id will be foreign key in medicine table
+    private String status; // enum -> INPROGRESS, CONFIRMED,CANCELLED
+
+    @OneToMany(cascade = CascadeType.ALL) // parent-side
+    @JoinColumn(name = "appointment_id")
     private Set<Medicine> medicines;
 
     @ManyToOne
@@ -43,12 +62,4 @@ public class Appointment {
     @JoinColumn(name = "doctor_id") // this id will be fk in appointment table
     private Doctor doctor;
 
-
-    public Appointment(String appNumber, LocalDateTime dateTimeOfAppointment, String problem, Patient patient, Doctor doctor) {
-        this.appNumber = appNumber;
-        this.dateTimeOfAppointment = dateTimeOfAppointment;
-        this.problem = problem;
-        this.patient = patient;
-        this.doctor = doctor;
-    }
 }

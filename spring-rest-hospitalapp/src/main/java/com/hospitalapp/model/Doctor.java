@@ -1,5 +1,6 @@
 package com.hospitalapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,22 +36,16 @@ public class Doctor {
     @JoinColumn(name = "address_id") // this address_id will be added as foreign key in doctor table
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctor_id") // this doctor_id will be added as foreign key in appointment table
+    @OneToMany(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "doctor_id")
+    @ToString.Exclude
+    @JsonIgnore
     private Set<Appointment> appointments;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "department_id") // this department_id will be added as foreign key in doctor table
     @ToString.Exclude
     private Department department;  // Onco,Cardio,Ent,Neuro,Physio,Ortho,Opthalmo,Gynaec,Nephro
 
 
-    public Doctor(String doctorFirstName,String doctorLastName, String gender, double fees, Address address, Set<Appointment> appointments) {
-        this.doctorFirstName = doctorFirstName;
-        this.doctorLastName = doctorLastName;
-        this.gender = gender;
-        this.fees = fees;
-        this.address = address;
-        this.appointments = appointments;
-    }
 }

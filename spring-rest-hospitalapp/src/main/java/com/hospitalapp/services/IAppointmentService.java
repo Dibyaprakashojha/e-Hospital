@@ -2,6 +2,8 @@ package com.hospitalapp.services;
 
 import com.hospitalapp.model.Appointment;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 /**
  * @author Dibya Prakash Ojha
@@ -20,4 +22,6 @@ public interface IAppointmentService {
     Appointment getById(int appoitnmentId);
 
     List<Appointment> getAllByDoctor(String doctorName);
+    List<Appointment> getByPatientName(String patientFirstName);
+    List<Appointment> getByTimeSlotsAndDateOfAppointment(LocalTime slotStartTime, LocalTime slotEndTime, LocalDate dateOfAppointment);
 }

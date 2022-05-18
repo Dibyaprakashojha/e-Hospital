@@ -24,7 +24,7 @@ public interface IDoctorService {
     List<Doctor> getByDoctorLastName(String doctorLastName);
     List<Doctor> getByFees(double fees);
     List<Doctor> getByDepartment(String department);
-    List<Doctor> getByDepartmentAndFees(String department,double fees);
+    List<Doctor> getByDepartmentAndFeesLessThan(String department, double fees);
 
     List<Doctor> getByCity(String city);
     List<Doctor> getByDepartmentCity(String department,String city);

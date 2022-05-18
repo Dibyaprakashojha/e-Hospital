@@ -30,13 +30,18 @@ public class AppUserDetails {
     @Id
     @GeneratedValue
     private Integer userDetailsId;
+
     @Column(length = 20)
     private String firstName;
+
     @Column(length = 20)
     private String lastName;
-    @Column(unique = true)
+
+//    @Column(length = 255,unique = true)
     private String emailId;
+
     private String password;
+
     private String roles; // this param is the role assigned to a user (ADMIN,DOCTOR,PATIENT,PHARMACIST)
 
     public AppUserDetails(String firstName, String lastName, String emailId, String password, String roles) {
