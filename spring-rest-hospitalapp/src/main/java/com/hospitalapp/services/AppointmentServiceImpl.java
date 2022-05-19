@@ -3,10 +3,8 @@ package com.hospitalapp.services;
 import com.hospitalapp.exceptions.AppointmentNotFoundException;
 import com.hospitalapp.exceptions.IdNotFoundException;
 import com.hospitalapp.model.Appointment;
-import com.hospitalapp.model.Doctor;
 import com.hospitalapp.repository.IAppointmentRepository;
 import com.hospitalapp.vo.AppointmentDoctorPatientVo;
-import com.hospitalapp.vo.DoctorVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +19,10 @@ import java.util.stream.Collectors;
  * @project : e-Hospital
  */
 @Service
-public class AppoitmentServiceImpl implements IAppointmentService{
+public class AppointmentServiceImpl implements IAppointmentService{
     private IAppointmentRepository iAppointmentRepository;
     @Autowired
-    public void setiAppointmentRepository(IAppointmentRepository iAppointmentRepository) {
+    public void setAppointmentRepository(IAppointmentRepository iAppointmentRepository) {
         this.iAppointmentRepository = iAppointmentRepository;
     }
 
@@ -51,8 +49,8 @@ public class AppoitmentServiceImpl implements IAppointmentService{
     }
 
     @Override
-    public Appointment getById(int appoitnmentId) throws IdNotFoundException {
-        return iAppointmentRepository.findById(appoitnmentId).get();
+    public Appointment getById(int appointmentId) throws IdNotFoundException {
+        return iAppointmentRepository.findById(appointmentId).get();
     }
 
     @Override
