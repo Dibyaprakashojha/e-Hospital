@@ -25,22 +25,25 @@ import java.util.Arrays;
 @Service
 public class AppUserDetailsServiceImpl implements UserDetailsService,IAppUserDetailsService {
 
-    @Autowired
     private IAppUserDetailsRepository iAppUserDetailsRepository;
 
+    @Autowired
+    public void setiAppUserDetailsRepository(IAppUserDetailsRepository iAppUserDetailsRepository) {
+        this.iAppUserDetailsRepository = iAppUserDetailsRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // get the user by passing the emailId
-        AppUserDetails appUserDetails = iAppUserDetailsRepository.findByEmailId(username);
-        String username1 = appUserDetails.getEmailId();
+        // get the user by passing the email
+        AppUserDetails appUserDetails = iAppUserDetailsRepository.findByEmail(username);
+        if (appUserDetails == null)
+            throw new UsernameNotFoundException("User Id Not Found");
+        String username1 = appUserDetails.getEmail();
         String password = appUserDetails.getPassword();
 
         // set the roles
-        GrantedAuthority grantedAuthority1 = new SimpleGrantedAuthority("ADMIN");
-        GrantedAuthority grantedAuthority2 = new SimpleGrantedAuthority("DOCTOR");
-        GrantedAuthority grantedAuthority3 = new SimpleGrantedAuthority("PATIENT");
-        UserDetails userDetails = new User(username1, password, Arrays.asList(grantedAuthority1,grantedAuthority2,grantedAuthority3));
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(appUserDetails.getRoles());
+        UserDetails userDetails = new User(username1, password, Arrays.asList(grantedAuthority));
         return userDetails;
     }
 

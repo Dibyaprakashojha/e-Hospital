@@ -27,7 +27,7 @@ public class AppUserDetailsController {
     public void addUser(@RequestBody AppUserDetails appUserDetails) {
         String firstName = appUserDetails.getFirstName();
         String lastName = appUserDetails.getLastName();
-        String username = appUserDetails.getEmailId();
+        String username = appUserDetails.getEmail();
         String password = appUserDetails.getPassword();
         String roles = appUserDetails.getRoles();
         // encode the password before saving to the dB

@@ -38,16 +38,16 @@ public class AppUserDetails {
     private String lastName;
 
 //    @Column(length = 255,unique = true)
-    private String emailId;
+    private String email;
 
     private String password;
 
     private String roles; // this param is the role assigned to a user (ADMIN,DOCTOR,PATIENT,PHARMACIST)
 
-    public AppUserDetails(String firstName, String lastName,String emailId, String password, String roles) {
+    public AppUserDetails(String firstName, String lastName, String email, String password, String roles) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.emailId = emailId;
+        this.email = email;
         this.password = password;
         this.roles = roles;
     }

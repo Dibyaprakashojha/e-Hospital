@@ -25,7 +25,7 @@ public class DoctorController {
         this.iDoctorService = iDoctorService;
     }
 
-    @PostMapping("/doctors")
+    @PostMapping("/admin/doctors")
     public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor doctor){
         iDoctorService.addDoctor(doctor);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -33,7 +33,7 @@ public class DoctorController {
                 .body(doctor);
     }
 
-    @PutMapping("/doctors")
+    @PutMapping("/admin/doctors")
     public ResponseEntity<Void> updateDoctor(@RequestBody Doctor doctor){
         iDoctorService.updateDoctor(doctor);
         return ResponseEntity.status(HttpStatus.OK)
@@ -41,7 +41,7 @@ public class DoctorController {
                 .build();
     }
 
-    @GetMapping("/doctors")
+    @GetMapping("/admin/doctors")
     public ResponseEntity<List<Doctor>> getAll(){
         List<Doctor> doctors = iDoctorService.getAll();
         return ResponseEntity.status(HttpStatus.OK)
@@ -49,7 +49,7 @@ public class DoctorController {
                 .body(doctors);
     }
 
-    @DeleteMapping("/doctors/doctorId/{doctorId}")
+    @DeleteMapping("/admin/doctors/doctorId/{doctorId}")
     public ResponseEntity<Void> deleteDoctor(@PathVariable("doctorId") int doctorId){
         iDoctorService.deleteDoctor(doctorId);
         return ResponseEntity.status(HttpStatus.OK)
@@ -57,7 +57,7 @@ public class DoctorController {
                 .build();
     }
 
-    @GetMapping("/doctors/doctorId/{doctorId}")
+    @GetMapping("/admin/doctors/doctorId/{doctorId}")
     public ResponseEntity<Doctor> getById(@PathVariable("doctorId") int doctorId){
         Doctor doctor = iDoctorService.getById(doctorId);
         return ResponseEntity.status(HttpStatus.OK)
@@ -73,7 +73,7 @@ public class DoctorController {
                 .body(doctors);
     }
 
-    @GetMapping("/doctors/doctorName/{doctorLastName}")
+    @GetMapping("/admin/doctors/doctorName/{doctorLastName}")
     public ResponseEntity<List<Doctor>> getByDoctorLastName(@PathVariable("doctorLastName") String doctorLastName) throws DoctorNotFoundException{
         List<Doctor> doctors = iDoctorService.getByDoctorLastName(doctorLastName);
         return ResponseEntity.status(HttpStatus.OK)
@@ -81,7 +81,7 @@ public class DoctorController {
                 .body(doctors);
     }
 
-    @GetMapping("/doctors/fees/{fees}")
+    @GetMapping("/admin/doctors/fees/{fees}")
     public ResponseEntity<List<Doctor>> getByFees(@PathVariable("fees") double fees) throws DoctorNotFoundException{
         List<Doctor> doctors = iDoctorService.getByFees(fees);
         return ResponseEntity.status(HttpStatus.OK)
@@ -89,7 +89,7 @@ public class DoctorController {
                 .body(doctors);
     }
 
-    @GetMapping("/doctors/department/{department}")
+    @GetMapping("/admin/doctors/department/{department}")
     public ResponseEntity<List<Doctor>> getByDepartment(@PathVariable("department") String department) throws DoctorNotFoundException{
         List<Doctor> doctors = iDoctorService.getByDepartment(department);
         return ResponseEntity.status(HttpStatus.OK)
@@ -97,7 +97,7 @@ public class DoctorController {
                 .body(doctors);
     }
 
-    @GetMapping("/doctors/department/{department}/fees/{fees}")
+    @GetMapping("/admin/doctors/department/{department}/fees/{fees}")
     public ResponseEntity<List<Doctor>> getByDepartmentAndFeesLessThan(@PathVariable("department") String department,@PathVariable("fees")  double fees) throws DoctorNotFoundException{
         List<Doctor> doctors = iDoctorService.getByDepartmentAndFeesLessThan(department, fees);
         return ResponseEntity.status(HttpStatus.OK)
@@ -105,7 +105,7 @@ public class DoctorController {
                 .body(doctors);
     }
 
-    @GetMapping("/doctors/city/{city}")
+    @GetMapping("/admin/doctors/city/{city}")
     public ResponseEntity<List<Doctor>> getByCity(@PathVariable("city") String city) throws DoctorNotFoundException{
         List<Doctor> doctors = iDoctorService.getByCity(city);
         return ResponseEntity.status(HttpStatus.OK)
@@ -113,7 +113,7 @@ public class DoctorController {
                 .body(doctors);
     }
 
-    @GetMapping("/doctors/department/{department}/city/{city}")
+    @GetMapping("/admin/doctors/department/{department}/city/{city}")
     public ResponseEntity<List<Doctor>> getByDepartmentCity(@PathVariable("department") String department,@PathVariable("city") String city) throws DoctorNotFoundException{
         List<Doctor> doctors = iDoctorService.getByDepartmentCity(department, city);
         return ResponseEntity.status(HttpStatus.OK)
@@ -121,7 +121,7 @@ public class DoctorController {
                 .body(doctors);
     }
 
-    @GetMapping("/doctors/department/{department}/state/{state}")
+    @GetMapping("/admin/doctors/department/{department}/state/{state}")
     public ResponseEntity<List<Doctor>> getByDepartmentState(@PathVariable("department") String department,@PathVariable("state") String state) throws DoctorNotFoundException{
         List<Doctor> doctors = iDoctorService.getByDepartmentState(department, state);
         return ResponseEntity.status(HttpStatus.OK)
@@ -129,7 +129,7 @@ public class DoctorController {
                 .body(doctors);
     }
 
-    @GetMapping("/doctors/city/{city}/fees/{fees}")
+    @GetMapping("/admin/doctors/city/{city}/fees/{fees}")
     public ResponseEntity<List<Doctor>> getByCityFees(@PathVariable("city") String city,@PathVariable("fees") double fees) throws DoctorNotFoundException{
         List<Doctor> doctors = iDoctorService.getByCityFees(city, fees);
         return ResponseEntity.status(HttpStatus.OK)

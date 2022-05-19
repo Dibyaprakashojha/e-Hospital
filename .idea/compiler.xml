@@ -7,18 +7,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="your-reference-service" />
         <module name="spring-rest-hospitalapp" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="doctor-service" target="11" />
       <module name="spring-rest-hospitalapp" target="11" />
+      <module name="your-reference-service" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="doctor-service" options="-parameters" />
       <module name="spring-rest-hospitalapp" options="-parameters" />
+      <module name="your-reference-service" options="-parameters" />
     </option>
   </component>
 </project>

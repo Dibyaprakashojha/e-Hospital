@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/spring-rest-hospitalapp/spring-rest-hospitalapp.iml" filepath="$PROJECT_DIR$/spring-rest-hospitalapp/spring-rest-hospitalapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/your-reference-service/your-reference-service.iml" filepath="$PROJECT_DIR$/your-reference-service/your-reference-service.iml" />
     </modules>
   </component>
 </project>
