@@ -4,6 +4,7 @@ import com.hospitalapp.exceptions.AppointmentNotFoundException;
 import com.hospitalapp.exceptions.IdNotFoundException;
 import com.hospitalapp.model.Appointment;
 import com.hospitalapp.services.IAppointmentService;
+import com.hospitalapp.vo.AppointmentDoctorPatientVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,24 +62,24 @@ public class AppointmentController {
     }
 
     @GetMapping("/doctor/appointments/doctors/{doctorLastName}")
-    public ResponseEntity<List<Appointment>> getByDoctorName(@PathVariable("doctorLastName") String doctorLastName) throws AppointmentNotFoundException {
-        List<Appointment> appointments = iAppointmentService.getByDoctorName(doctorLastName);
+    public ResponseEntity<List<AppointmentDoctorPatientVo>> getByDoctorName(@PathVariable("doctorLastName") String doctorLastName) throws AppointmentNotFoundException {
+        List<AppointmentDoctorPatientVo> appointments = iAppointmentService.getByDoctorName(doctorLastName);
         return ResponseEntity.status(HttpStatus.OK)
                 .headers(httpHeaders -> httpHeaders.add("desc", "get all appointments by doctorLastName"))
                 .body(appointments);
     }
 
     @GetMapping("/appointments/patients/{patientFirstName}")
-    public ResponseEntity<List<Appointment>> getByPatientName(@PathVariable("patientFirstName") String patientFirstName) throws AppointmentNotFoundException{
-        List<Appointment> appointments = iAppointmentService.getByPatientName(patientFirstName);
+    public ResponseEntity<List<AppointmentDoctorPatientVo>> getByPatientName(@PathVariable("patientFirstName") String patientFirstName) throws AppointmentNotFoundException{
+        List<AppointmentDoctorPatientVo> appointments = iAppointmentService.getByPatientName(patientFirstName);
         return ResponseEntity.status(HttpStatus.OK)
                 .headers(httpHeaders -> httpHeaders.add("desc", "get all appointments by patientFirstName"))
                 .body(appointments);
     }
 
     @GetMapping("/appointments/slotStart/{slotStartTime}/slotEnd/{slotEndTime}/dateOfAppointment/{dateOfAppointment}")
-    public ResponseEntity<List<Appointment>> getByTimeSlotsAndDateOfAppointment(@PathVariable("slotStartTime") LocalTime slotStartTime,@PathVariable("slotEndTime") LocalTime slotEndTime,@PathVariable("dateOfAppointment") LocalDate dateOfAppointment) throws AppointmentNotFoundException{
-        List<Appointment> appointments = iAppointmentService.getByTimeSlotsAndDateOfAppointment(slotStartTime, slotEndTime, dateOfAppointment);
+    public ResponseEntity<List<AppointmentDoctorPatientVo>> getByTimeSlotsAndDateOfAppointment(@PathVariable("slotStartTime") LocalTime slotStartTime,@PathVariable("slotEndTime") LocalTime slotEndTime,@PathVariable("dateOfAppointment") LocalDate dateOfAppointment) throws AppointmentNotFoundException{
+        List<AppointmentDoctorPatientVo> appointments = iAppointmentService.getByTimeSlotsAndDateOfAppointment(slotStartTime, slotEndTime, dateOfAppointment);
         return ResponseEntity.status(HttpStatus.OK)
                 .headers(httpHeaders -> httpHeaders.add("desc", "get all appointments by schedule"))
                 .body(appointments);

@@ -3,6 +3,7 @@ package com.hospitalapp.services;
 import com.hospitalapp.exceptions.AppointmentNotFoundException;
 import com.hospitalapp.exceptions.IdNotFoundException;
 import com.hospitalapp.model.Appointment;
+import com.hospitalapp.vo.AppointmentDoctorPatientVo;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,7 +24,7 @@ public interface IAppointmentService {
     void deleteAppointment(int appointmentId) throws IdNotFoundException;
     Appointment getById(int appoitnmentId) throws IdNotFoundException;
 
-    List<Appointment> getByDoctorName(String doctorName) throws AppointmentNotFoundException;
-    List<Appointment> getByPatientName(String patientFirstName) throws AppointmentNotFoundException;
-    List<Appointment> getByTimeSlotsAndDateOfAppointment(LocalTime slotStartTime, LocalTime slotEndTime, LocalDate dateOfAppointment) throws AppointmentNotFoundException;
+    List<AppointmentDoctorPatientVo> getByDoctorName(String doctorName) throws AppointmentNotFoundException;
+    List<AppointmentDoctorPatientVo> getByPatientName(String patientFirstName) throws AppointmentNotFoundException;
+    List<AppointmentDoctorPatientVo> getByTimeSlotsAndDateOfAppointment(LocalTime slotStartTime, LocalTime slotEndTime, LocalDate dateOfAppointment) throws AppointmentNotFoundException;
 }
