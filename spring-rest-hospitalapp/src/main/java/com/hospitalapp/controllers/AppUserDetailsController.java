@@ -23,7 +23,7 @@ public class AppUserDetailsController {
     private IAppUserDetailsService iAppUserDetailsService;
 
 
-    @PostMapping("/")
+    @PostMapping("/register")
     public void addUser(@RequestBody AppUserDetails appUserDetails) {
         String firstName = appUserDetails.getFirstName();
         String lastName = appUserDetails.getLastName();

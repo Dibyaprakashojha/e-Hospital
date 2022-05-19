@@ -60,7 +60,7 @@ public class AppointmentController {
                 .body(appointment);
     }
 
-    @GetMapping("/appointments/doctors/{doctorLastName}")
+    @GetMapping("/doctor/appointments/doctors/{doctorLastName}")
     public ResponseEntity<List<Appointment>> getByDoctorName(@PathVariable("doctorLastName") String doctorLastName) throws AppointmentNotFoundException {
         List<Appointment> appointments = iAppointmentService.getByDoctorName(doctorLastName);
         return ResponseEntity.status(HttpStatus.OK)

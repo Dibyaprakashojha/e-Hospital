@@ -4,6 +4,7 @@ import com.hospitalapp.exceptions.DoctorNotFoundException;
 import com.hospitalapp.exceptions.IdNotFoundException;
 import com.hospitalapp.model.Doctor;
 import com.hospitalapp.repository.IDoctorRepository;
+import com.hospitalapp.vo.DoctorVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
  * @project : e-Hospital
  */
 @Service
-public class DoctorServiceImpl implements IDoctorService{
+public class DoctorServiceImpl implements IDoctorService {
 
     private IDoctorRepository iDoctorRepository;
 
@@ -31,7 +32,6 @@ public class DoctorServiceImpl implements IDoctorService{
      * This implementation class implements the methods of IDoctorService interface
      * for adding doctor details into the table
      * @param doctor
-     * @return One Particular Doctor detail
      */
     @Override
     @Transactional
@@ -64,7 +64,7 @@ public class DoctorServiceImpl implements IDoctorService{
      */
     @Override
     public Doctor getById(int doctorId) throws IdNotFoundException {
-        return iDoctorRepository.findById(doctorId).get();
+       return iDoctorRepository.findById(doctorId).get();
     }
 
     /**
@@ -72,8 +72,10 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return List of all doctors
      */
     @Override
-    public List<Doctor> getAll() throws DoctorNotFoundException {
-        return iDoctorRepository.findAll();
+    public List<DoctorVo> getAll() throws DoctorNotFoundException {
+        return iDoctorRepository.findAll()
+                .stream().map(this::convertVoToEntity)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -82,9 +84,10 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByDoctorFirstName(String doctorFirstName) throws DoctorNotFoundException {
+    public List<DoctorVo> getByDoctorFirstName(String doctorFirstName) throws DoctorNotFoundException {
         return iDoctorRepository.findByDoctorFirstName(doctorFirstName)
                 .stream().sorted(Comparator.comparing(Doctor::getDoctorFirstName))
+                .map(this::convertVoToEntity)
                 .collect(Collectors.toList());
     }
 
@@ -94,9 +97,10 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByDoctorLastName(String doctorLastName) throws DoctorNotFoundException {
+    public List<DoctorVo> getByDoctorLastName(String doctorLastName) throws DoctorNotFoundException {
         return iDoctorRepository.findByDoctorLastName(doctorLastName)
                 .stream().sorted(Comparator.comparing(Doctor::getDoctorLastName))
+                .map(this::convertVoToEntity)
                 .collect(Collectors.toList());
     }
 
@@ -106,9 +110,10 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByFees(double fees) throws DoctorNotFoundException {
+    public List<DoctorVo> getByFees(double fees) throws DoctorNotFoundException {
         return iDoctorRepository.findByFeesLessThan(fees)
                 .stream().sorted(Comparator.comparing(Doctor::getFees))
+                .map(this::convertVoToEntity)
                 .collect(Collectors.toList());
     }
 
@@ -118,9 +123,10 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByDepartment(String department) throws DoctorNotFoundException {
+    public List<DoctorVo> getByDepartment(String department) throws DoctorNotFoundException {
         return iDoctorRepository.findByDepartment(department)
                 .stream().sorted(Comparator.comparing(Doctor::getDoctorFirstName))
+                .map(this::convertVoToEntity)
                 .collect(Collectors.toList());
     }
 
@@ -131,9 +137,10 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByDepartmentAndFeesLessThan(String department, double fees) throws DoctorNotFoundException {
+    public List<DoctorVo> getByDepartmentAndFeesLessThan(String department, double fees) throws DoctorNotFoundException {
         return iDoctorRepository.findByDepartmentAndFeesLessThan(department, fees)
                 .stream().sorted(Comparator.comparing(Doctor::getDoctorFirstName))
+                .map(this::convertVoToEntity)
                 .collect(Collectors.toList());
     }
 
@@ -143,8 +150,10 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByCity(String city) throws DoctorNotFoundException {
-        return iDoctorRepository.findByCity(city);
+    public List<DoctorVo> getByCity(String city) throws DoctorNotFoundException {
+        return iDoctorRepository.findByCity(city)
+                .stream().map(this::convertVoToEntity)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -154,8 +163,10 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByDepartmentCity(String department, String city) throws DoctorNotFoundException {
-        return iDoctorRepository.findByDepartmentCity(department, city);
+    public List<DoctorVo> getByDepartmentCity(String department, String city) throws DoctorNotFoundException {
+        return iDoctorRepository.findByDepartmentCity(department, city)
+                .stream().map(this::convertVoToEntity)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -176,8 +187,20 @@ public class DoctorServiceImpl implements IDoctorService{
      * @return
      */
     @Override
-    public List<Doctor> getByCityFees(String city, double fees) throws DoctorNotFoundException {
-        return iDoctorRepository.findByCityFees(city, fees);
+    public List<DoctorVo> getByCityFees(String city, double fees) throws DoctorNotFoundException {
+        return iDoctorRepository.findByCityFees(city, fees)
+                .stream().map(this::convertVoToEntity)
+                .collect(Collectors.toList());
     }
 
+    private DoctorVo convertVoToEntity(Doctor doctor) {
+        DoctorVo doctorVo = new DoctorVo();
+        doctorVo.setDoctorId(doctor.getDoctorId());
+        doctorVo.setDoctorName(doctor.getDoctorFirstName()+" "+doctor.getDoctorLastName());
+        doctorVo.setGender(doctor.getGender());
+        doctorVo.setCity(doctor.getAddress().getCity());
+        doctorVo.setDepartments(doctor.getDepartment().getDepartments());
+        doctorVo.setFees(doctor.getFees());
+        return doctorVo;
+    }
 }

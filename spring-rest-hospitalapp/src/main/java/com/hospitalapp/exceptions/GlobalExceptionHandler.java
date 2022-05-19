@@ -31,7 +31,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         String error = ex.getMessage();
         List<String> messages = Arrays.asList(error,"Method not supported");
         ApiErrors apiErrors = new ApiErrors(LocalDateTime.now(),status,error,messages, status.value());
-        return ResponseEntity.status( status).headers(headers).body(apiErrors);
+        return ResponseEntity.status(status).headers(headers).body(apiErrors);
     }
     @Override
     protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {

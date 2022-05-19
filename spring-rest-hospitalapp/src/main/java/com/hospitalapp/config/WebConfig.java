@@ -22,11 +22,11 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin/**")
                     .hasRole("ADMIN") // permit this url to Admin only
-                .antMatchers("/doctor-api/doctors","/appointment-api/appointments/doctors/**")
+                .antMatchers("/doctor/**")
                     .hasRole("DOCTOR")
                 .antMatchers("/appointment-api/appointments","/appointment-api/appointmentsdelete-appointment/**")
-                    .hasRole("PATIENT")
-                .antMatchers("/")
+                    .hasRole("USER")
+                .antMatchers("/register")
                     .permitAll()
                 .and()
                 .formLogin() // for form login authentication
