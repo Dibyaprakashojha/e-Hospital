@@ -24,9 +24,9 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                     .hasRole("ADMIN") // permit this url to Admin only
                 .antMatchers("/doctor/**")
                     .hasRole("DOCTOR")
-                .antMatchers("/appointment-api/appointments","/appointment-api/appointmentsdelete-appointment/**")
+                .antMatchers("/user/**","/appointment-api/appointments","/appointment-api/appointmentsdelete-appointment/**")
                     .hasRole("USER")
-                .antMatchers("/register")
+                .antMatchers( "/register")
                     .permitAll()
                 .and()
                 .formLogin() // for form login authentication

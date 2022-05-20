@@ -1,6 +1,5 @@
 package com.hospitalapp.vo;
 
-import com.hospitalapp.model.Department;
 import lombok.Getter;
 import lombok.Setter;
 

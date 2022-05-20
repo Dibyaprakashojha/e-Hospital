@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Dibya Prakash Ojha
@@ -64,7 +65,8 @@ public class DoctorServiceImpl implements IDoctorService {
      */
     @Override
     public Doctor getById(int doctorId) throws IdNotFoundException {
-       return iDoctorRepository.findById(doctorId).get();
+       return iDoctorRepository.findById(doctorId)
+               .get();
     }
 
     /**

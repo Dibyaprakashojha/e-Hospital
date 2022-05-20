@@ -3,6 +3,7 @@ package com.hospitalapp.services;
 import com.hospitalapp.exceptions.IdNotFoundException;
 import com.hospitalapp.exceptions.PatientNotFoundException;
 import com.hospitalapp.model.Patient;
+import com.hospitalapp.vo.PatientVo;
 
 import java.util.List;
 /**
@@ -19,13 +20,13 @@ public interface IPatientService {
     void updatePatient(Patient patient);
     void deletePatient(int patientId);
     Patient getById(int patientId)  throws IdNotFoundException;
-    List<Patient> getAll() throws PatientNotFoundException;
+    List<PatientVo> getAll() throws PatientNotFoundException;
 
-    List<Patient> getByPatientLastName(String patientLastName) throws PatientNotFoundException;
-    List<Patient> getByBloodGroup(String bloodGroup) throws PatientNotFoundException;
+    List<PatientVo> getByPatientLastName(String patientLastName) throws PatientNotFoundException;
+    List<PatientVo> getByBloodGroup(String bloodGroup) throws PatientNotFoundException;
 
-    List<Patient> getByPatientFirstNameBloodGroup(String patientFirstName,String bloodGroup) throws PatientNotFoundException;
-    List<Patient> getByPatientFirstNameCity(String patientFirstName,String city) throws PatientNotFoundException;
+    List<PatientVo> getByPatientFirstNameBloodGroup(String patientFirstName,String bloodGroup) throws PatientNotFoundException;
+    List<PatientVo> getByPatientFirstNameCity(String patientFirstName,String city) throws PatientNotFoundException;
 
 
 }
