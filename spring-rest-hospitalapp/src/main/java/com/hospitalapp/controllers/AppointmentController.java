@@ -29,6 +29,14 @@ public class AppointmentController {
         this.iAppointmentService = iAppointmentService;
     }
 
+    /**
+     * <p>This controller is to add appointments i.e. to create an appointment by the user with the doctor</p>
+     *
+     * @see <a href="http://localhost:8098/appointment-api/appointments">Add Appointment</a>
+     *
+     * @param appointment
+     * @return The appointment object added
+     */
     @PostMapping("/appointments")
     public ResponseEntity<Appointment> addAppointment(@RequestBody Appointment appointment){
         iAppointmentService.addAppointment(appointment);

@@ -1,0 +1,20 @@
+version: "3"
+services:
+  hospital-api: # name of the container
+    image: dibyaprakash04/hospitalrepo:hospital-api
+    networks:
+    - hospital_sql
+    ports:
+    - "8096:8098"
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:8
+    networks:
+      - hospital_sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=hospitalproject
+networks:
+  hospital_sql:
