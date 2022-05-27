@@ -38,13 +38,14 @@ public class AppUserDetailsServiceImpl implements UserDetailsService,IAppUserDet
         AppUserDetails appUserDetails = iAppUserDetailsRepository.findByEmail(username);
         if (appUserDetails == null)
             throw new UsernameNotFoundException("User Id Not Found");
-        String username1 = appUserDetails.getEmail();
-        String password = appUserDetails.getPassword();
-
-        // set the roles
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(appUserDetails.getRoles());
-        UserDetails userDetails = new User(username1, password, Arrays.asList(grantedAuthority));
-        return userDetails;
+//        String username1 = appUserDetails.getEmail();
+//        String password = appUserDetails.getPassword();
+//        String role = appUserDetails.getRoles();
+//
+//        // set the roles
+//        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role);
+//        UserDetails userDetails = new User(username1, password, Arrays.asList(grantedAuthority));
+        return new MyUserDetails(appUserDetails);
     }
 
     @Override

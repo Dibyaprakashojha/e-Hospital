@@ -7,8 +7,10 @@ import com.hospitalapp.vo.DoctorVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
@@ -43,6 +45,7 @@ public class DoctorController {
     }
 
     @GetMapping("/admin/doctors")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<List<DoctorVo>> getAll(){
         List<DoctorVo> doctors = iDoctorService.getAll();
         return ResponseEntity.status(HttpStatus.OK)

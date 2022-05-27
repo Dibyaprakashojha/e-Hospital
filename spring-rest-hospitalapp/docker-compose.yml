@@ -8,6 +8,11 @@ services:
     - "8096:8098"
     depends_on:
       - mysqldb
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - data/hospital-api
 
   mysqldb:
     image: mysql:8

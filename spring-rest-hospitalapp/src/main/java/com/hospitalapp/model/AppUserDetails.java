@@ -44,12 +44,15 @@ public class AppUserDetails {
 
     private String roles; // this param is the role assigned to a user (ADMIN,DOCTOR,PATIENT,PHARMACIST)
 
-    public AppUserDetails(String firstName, String lastName, String email, String password, String roles) {
+    private boolean enabled;
+
+    public AppUserDetails(String firstName, String lastName, String email, String password, String roles, Boolean enabled) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.enabled = enabled;
     }
 
 }

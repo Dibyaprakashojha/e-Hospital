@@ -30,10 +30,11 @@ public class AppUserDetailsController {
         String username = appUserDetails.getEmail();
         String password = appUserDetails.getPassword();
         String roles = appUserDetails.getRoles();
+        Boolean enabled = appUserDetails.isEnabled();
         // encode the password before saving to the dB
         String encodedPassword = passwordEncoder.encode(password);
 
-        AppUserDetails appUser1 = new AppUserDetails(firstName,lastName,username, encodedPassword, roles);
+        AppUserDetails appUser1 = new AppUserDetails(firstName,lastName,username, encodedPassword, roles, enabled);
         iAppUserDetailsService.addUser(appUser1);
     }
 }
